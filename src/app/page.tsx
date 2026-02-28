@@ -5,10 +5,9 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { Github, Linkedin, Mail, Download, ArrowUpRight, Sparkles } from "lucide-react";
 import { useEffect, useMemo } from "react";
 
-
 const LINKS = {
-  github: "https://github.com/SanketJanger", 
-  linkedin: "https://www.linkedin.com/in/sanket-janger/", 
+  github: "https://github.com/SanketJanger",
+  linkedin: "https://www.linkedin.com/in/sanket-janger/",
   email: "mailto:sjanger@binghamton.edu",
   resume: "/SanketJanger_Resume.pdf",
 };
@@ -18,9 +17,8 @@ type Project = {
   tagline: string;
   stack: string[];
   highlights: string[];
-  href?: string;
-  status?: "In Progress" | "Shipped";
-  icon?: string; 
+  status?: "In Progress" | "Completed";
+  href?: string; 
 };
 
 const PROJECTS: Project[] = [
@@ -34,23 +32,39 @@ const PROJECTS: Project[] = [
       "Dashboards + automated deployments",
     ],
     status: "In Progress",
-    icon: "/projects/nyc-taxi.png",
+    href: "https://github.com/SanketJanger/nyc-taxi-analytics-platform",
   },
   {
     title: "Ensemble Learning for Medical Risk Prediction",
     tagline: "Stacked models with CNN + Gradient Boosting for risk scoring.",
     stack: ["PyTorch", "scikit-learn", "Python"],
     highlights: ["Cross-validation training pipeline", "Benchmarking + evaluation", "Fast inference focus"],
-    status: "Shipped",
-    icon: "/projects/medical-risk.png",
+    status: "Completed",
+    href: "https://github.com/SanketJanger/Ensemble-Learning-for-Medical-Risk-Prediction",
   },
   {
     title: "Retail Optimization Dashboard",
-    tagline: "SQL pipelines + Power BI for inventory and sales decisions.",
-    stack: ["SQL", "Power BI"],
-    highlights: ["Forecasting + trend analysis", "Operational analytics for decision visibility"],
-    status: "Shipped",
-    icon: "/projects/retail.png",
+    tagline: "SQL + Power BI analytics for inventory health, stockouts, and smarter reordering.",
+    stack: ["SQL", "Power BI", "CTEs", "Joins", "Aggregations", "Forecasting"],
+    highlights: [
+      "Built SQL datasets (CTEs/joins/aggregations) for sales KPIs, stockouts, and reorder signals.",
+      "Developed Power BI dashboards with trends + drilldowns by store/product/time.",
+      "Added demand forecasting views to support inventory planning and reduce stockouts.",
+    ],
+    status: "Completed",
+    href: "https://github.com/SanketJanger/Retail-Optimization-Dashboard",
+  },
+  {
+    title: "Customer Segmentation via Clustering",
+    tagline: "Unsupervised learning to discover customer segments from transactional data.",
+    stack: ["Python", "pandas", "scikit-learn", "K-Means", "EDA", "Clustering Metrics"],
+    highlights: [
+      "Implemented K-Means workflow with preprocessing (scaling/encoding) and repeatable runs.",
+      "Automated segment discovery from transactional data and generated segment profiles.",
+      "Evaluated clusters using silhouette/inertia and improved interpretability with feature-based insights.",
+    ],
+    status: "Completed",
+    href: "https://github.com/SanketJanger/Customer-Segmentation-via-Clustering",
   },
 ];
 
@@ -77,6 +91,27 @@ const EXPERIENCE = [
   },
 ];
 
+const EDUCATION = [
+  {
+    degree: "Master of Science in Computer Science (AI Track)",
+    school: "The State University of New York at Binghamton University",
+    location: "Binghamton, NY",
+    period: "Aug 2024 – May 2026",
+    details: [
+      "Relevant Coursework: Design and Analysis of Algorithms, Cloud Computing, Design Patterns, Programming Languages, System Programming, Intro to AI, Multi-Modal ML in BioMedicine, Intro to Machine Learning, Data Mining",
+    ],
+  },
+  {
+    degree: "Bachelor of Engineering in Computer Engineering (Honors in Data Science)",
+    school: "Savitribai Phule Pune University",
+    location: "India",
+    period: "2020 – 2024",
+    details: [
+      "Coursework: Data Structures and Algorithms, Distributed Systems, Database Management System, Operating Systems, Computer Networks, Machine Learning, Big Data Analytics, Cloud Computing, Software Engineering, Discrete Mathematics, Object-Oriented Programming, Programming language",
+    ],
+  },
+];
+
 const SKILLS = [
   { label: "Languages", items: ["Python", "SQL", "Java", "C#"] },
   { label: "Data/ML", items: ["NumPy", "Pandas", "scikit-learn", "PyTorch"] },
@@ -88,8 +123,8 @@ function cn(...c: Array<string | false | null | undefined>) {
   return c.filter(Boolean).join(" ");
 }
 
-
-function CursorToddler() {
+/** Premium cursor: ring + dot (desktop only) */
+function PremiumCursor() {
   const x = useMotionValue(-999);
   const y = useMotionValue(-999);
 
@@ -121,7 +156,6 @@ function CursorToddler() {
 
   return (
     <>
-      {/* ring */}
       <motion.div className="pointer-events-none fixed z-[80] hidden md:block" style={{ translateX: ringX, translateY: ringY }}>
         <div
           className="h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -136,7 +170,6 @@ function CursorToddler() {
         />
       </motion.div>
 
-      {/* dot */}
       <motion.div className="pointer-events-none fixed z-[90] hidden md:block" style={{ translateX: dotX, translateY: dotY }}>
         <div
           className="h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -190,29 +223,14 @@ function Pill({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ProjectIcon({ src, alt }: { src?: string; alt: string }) {
-  if (!src) {
-    return (
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/70">
-        <Sparkles className="h-5 w-5" />
-      </div>
-    );
-  }
-  return (
-    <div className="relative h-12 w-12 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-      <Image src={src} alt={alt} fill className="object-cover" sizes="48px" />
-    </div>
-  );
-}
-
 export default function Page() {
   const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <div className="min-h-screen bg-[#070812] text-white">
-      <CursorToddler />
+      <PremiumCursor />
 
-      {/* background: spotlight + grid */}
+      {/* background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div
           className="absolute inset-0 opacity-90"
@@ -231,7 +249,7 @@ export default function Page() {
         />
       </div>
 
-      {/* top nav */}
+      {/* nav */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070812]/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <a href="#home" className="group inline-flex items-center gap-2">
@@ -241,6 +259,7 @@ export default function Page() {
 
           <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
             <a className="hover:text-white" href="#about">About</a>
+            <a className="hover:text-white" href="#education">Education</a>
             <a className="hover:text-white" href="#projects">Projects</a>
             <a className="hover:text-white" href="#experience">Work-Ex</a>
             <a className="hover:text-white" href="#skills">Skills</a>
@@ -259,9 +278,9 @@ export default function Page() {
       </header>
 
       <main id="home" className="mx-auto max-w-6xl px-4">
-        {/* HERO */}
+        {/* hero */}
         <section className="py-16 md:py-24">
-          <div className="grid gap-10 md:grid-cols-[1.2fr_.8fr] md:items-center">
+          <div className="grid gap-8 md:gap-10 md:grid-cols-[1.2fr_.8fr] md:items-center">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
                 <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/90" />
@@ -269,9 +288,9 @@ export default function Page() {
               </div>
 
               <h1 className="mt-4 text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
-                I build <span className="text-white/70">data-driven</span> products
+                I build <span className="text-white/70">scalable systems</span> and
                 <br />
-                that feel <span className="text-white/70">fast</span> and <span className="text-white/70">clean</span>.
+                <span className="text-white/70">data-driven</span> products.
               </h1>
 
               <p className="mt-5 max-w-xl text-white/70">
@@ -279,52 +298,27 @@ export default function Page() {
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
-                <Pill>Python</Pill>
-                <Pill>AWS</Pill>
-                <Pill>FastAPI</Pill>
-                <Pill>Next.js</Pill>
-                <Pill>SQL</Pill>
-                <Pill>CI/CD</Pill>
+                <Pill>Python</Pill><Pill>AWS</Pill><Pill>FastAPI</Pill><Pill>Next.js</Pill><Pill>SQL</Pill><Pill>CI/CD</Pill>
               </div>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  href="#projects"
-                  className="group inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-medium text-[#070812] hover:opacity-90"
-                >
-                  View Projects{" "}
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-[1px] group-hover:translate-x-[1px]" />
+              <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3">
+                <a href="#projects" className="group inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-medium text-[#070812] hover:opacity-90">
+                  View Projects <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-[1px] group-hover:translate-x-[1px]" />
                 </a>
 
-                <a
-                  href="https://github.com/SanketJanger"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10"
-                >
+                <a href={LINKS.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10">
                   <Github className="h-4 w-4" /> GitHub
                 </a>
-
-                <a
-                  href="https://www.linkedin.com/in/sanket-janger"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10"
-                >
+                <a href={LINKS.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10">
                   <Linkedin className="h-4 w-4" /> LinkedIn
                 </a>
-
-                <a
-                  href="mailto:sjanger@binghamton.edu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10"
-                >
+                <a href="mailto:sjanger@binghamton.edu" className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10">
                   <Mail className="h-4 w-4" /> Email
                 </a>
               </div>
 
-              {/* Smooth scroll */}
-              <a
-                href="#about"
-                className="mt-10 inline-flex items-center gap-2 text-sm text-white/60 hover:text-white/85"
-              >
+              {/* scroll hint */}
+              <a href="#about" className="mt-10 inline-flex items-center gap-2 text-sm text-white/60 hover:text-white/85">
                 <span className="relative inline-flex h-6 w-4 items-start justify-center overflow-hidden rounded-full border border-white/15 bg-white/5">
                   <span className="mt-1 h-2 w-1 rounded-full bg-white/70 animate-[scrollDot_1.4s_ease-in-out_infinite]" />
                 </span>
@@ -332,24 +326,13 @@ export default function Page() {
               </a>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-              className="relative"
-            >
+            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1], delay: 0.05 }} className="relative">
               <div className="absolute -inset-4 rounded-[2rem] bg-white/5 blur-2xl" />
               <div className="relative rounded-[2rem] border border-white/10 bg-white/5 p-5 backdrop-blur">
                 <div className="flex items-center gap-4">
+                  {/* bigger profile */}
                   <div className="relative h-32 w-32 overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5">
-                    <Image
-                      src="/profile.jpg"
-                      alt="Profile"
-                      fill
-                      priority
-                      className="object-cover"
-                      sizes="112px"
-                    />
+                    <Image src="/profile.jpg" alt="Profile" fill className="object-cover" priority sizes="128px" />
                     <div className="pointer-events-none absolute inset-0 ring-1 ring-white/10" />
                   </div>
 
@@ -364,18 +347,7 @@ export default function Page() {
                     <div className="text-sm text-white/70">Currently crafting</div>
                     <div className="mt-1 font-medium">Real-time analytics + NLQ</div>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      <Pill>Athena</Pill>
-                      <Pill>S3</Pill>
-                      <Pill>FastAPI</Pill>
-                      <Pill>Next.js</Pill>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-[#0b0c1a]/70 p-4">
-                    <div className="text-sm text-white/70">Design vibe</div>
-                    <div className="mt-1 font-medium">Dark, glossy, minimal</div>
-                    <div className="mt-2 text-sm text-white/60">
-                      Smooth scrolling, subtle motion, and a premium cursor.
+                      <Pill>Athena</Pill><Pill>S3</Pill><Pill>FastAPI</Pill><Pill>Next.js</Pill>
                     </div>
                   </div>
                 </div>
@@ -397,13 +369,10 @@ export default function Page() {
             <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
               <p className="text-white/70 leading-relaxed">
                 I’m a CS grad student (AI Track) who likes building systems that turn messy real-world data into clean, useful products.
-                I enjoy combining cloud, APIs, and thoughtful UI to make analytics feel effortless.
+                I enjoy combining cloud, APIs, and thoughtful Visualizations to make analytics feel effortless.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
-                <Pill>ETL</Pill>
-                <Pill>Analytics</Pill>
-                <Pill>ML</Pill>
-                <Pill>System Design</Pill>
+                <Pill>ETL</Pill><Pill>Analytics</Pill><Pill>ML</Pill><Pill>System Design</Pill>
               </div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
@@ -417,24 +386,37 @@ export default function Page() {
           </div>
         </Section>
 
+        {/* ✅ MOVED: Education between About and Projects */}
+        <Section id="education" eyebrow="Education" title="My academic background">
+          <div className="space-y-5">
+            {EDUCATION.map((e) => (
+              <div key={e.degree} className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div>
+                    <div className="text-lg font-medium">{e.degree}</div>
+                    <div className="mt-1 text-sm text-white/70">{e.school}</div>
+                  </div>
+                  <div className="text-sm text-white/60">
+                    {e.location} • {e.period}
+                  </div>
+                </div>
+                <ul className="mt-4 space-y-2 text-sm text-white/70">
+                  {e.details.map((d) => <li key={d}>• {d}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Section>
+
         <Section id="projects" eyebrow="Projects" title="Stuff I’ve built (and I’m building)">
           <div className="grid gap-5 md:grid-cols-2">
             {PROJECTS.map((p) => (
-              <motion.div
-                key={p.title}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                className="group rounded-[1.6rem] border border-white/10 bg-white/5 p-6 hover:bg-white/7"
-              >
+              <motion.div key={p.title} whileHover={{ y: -4 }} transition={{ duration: 0.2 }} className="group rounded-[1.6rem] border border-white/10 bg-white/5 p-6 hover:bg-white/7">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    <ProjectIcon src={p.icon} alt={p.title} />
-                    <div>
-                      <div className="text-lg font-medium tracking-tight">{p.title}</div>
-                      <div className="mt-1 text-sm text-white/65">{p.tagline}</div>
-                    </div>
+                  <div>
+                    <div className="text-lg font-medium tracking-tight">{p.title}</div>
+                    <div className="mt-1 text-sm text-white/65">{p.tagline}</div>
                   </div>
-
                   {p.status && (
                     <span
                       className={cn(
@@ -450,18 +432,23 @@ export default function Page() {
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {p.stack.map((s) => (
-                    <Pill key={s}>{s}</Pill>
-                  ))}
+                  {p.stack.map((s) => <Pill key={s}>{s}</Pill>)}
                 </div>
 
                 <ul className="mt-4 space-y-2 text-sm text-white/70">
-                  {p.highlights.map((h) => (
-                    <li key={h}>• {h}</li>
-                  ))}
+                  {p.highlights.map((h) => <li key={h}>• {h}</li>)}
                 </ul>
 
-                <div className="mt-5 text-xs text-white/55"></div>
+                {p.href && (
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex items-center text-sm text-indigo-300 hover:text-indigo-200"
+                  >
+                    View Repository →
+                  </a>
+                )}
               </motion.div>
             ))}
           </div>
@@ -473,14 +460,10 @@ export default function Page() {
               <div key={e.role} className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <div className="text-lg font-medium">{e.role}</div>
-                  <div className="text-sm text-white/60">
-                    {e.where} • {e.when}
-                  </div>
+                  <div className="text-sm text-white/60">{e.where} • {e.when}</div>
                 </div>
                 <ul className="mt-4 space-y-2 text-sm text-white/70">
-                  {e.bullets.map((b) => (
-                    <li key={b}>• {b}</li>
-                  ))}
+                  {e.bullets.map((b) => <li key={b}>• {b}</li>)}
                 </ul>
               </div>
             ))}
@@ -493,9 +476,7 @@ export default function Page() {
               <div key={s.label} className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
                 <div className="text-sm text-white/70">{s.label}</div>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {s.items.map((it) => (
-                    <Pill key={it}>{it}</Pill>
-                  ))}
+                  {s.items.map((it) => <Pill key={it}>{it}</Pill>)}
                 </div>
               </div>
             ))}
@@ -506,19 +487,17 @@ export default function Page() {
           <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-7">
             <p className="text-white/70 max-w-2xl">
               Want to chat about internships/new-grad roles, backend systems, data pipelines, or building a project together?
-              Reach out.
+              Reach out — I reply fast.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="mailto:sjanger@binghamton.edu" 
-              className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10"
-              >
-                <Mail className="h-4 w-4" /> Email
+              <a className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-medium text-[#070812] hover:opacity-90" href="mailto:sjanger@binghamton.edu">
+                <Mail className="h-4 w-4" /> Email me
               </a>
-              <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.github}>
+              <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.github} target="_blank" rel="noreferrer">
                 <Github className="h-4 w-4" /> GitHub
               </a>
-              <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.linkedin}>
+              <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.linkedin} target="_blank" rel="noreferrer">
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
               <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.resume} download>
@@ -530,10 +509,10 @@ export default function Page() {
 
         <footer className="pb-10 pt-6 text-center text-xs text-white/45">
           <div className="mb-3 flex justify-center gap-4 text-white/70">
-            <a className="hover:text-white" href="https://github.com/SanketJanger" target="_blank">GitHub</a>
-            <a className="hover:text-white" href="https://www.linkedin.com/in/sanket-janger" target="_blank">LinkedIn</a>
+            <a className="hover:text-white" href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
+            <a className="hover:text-white" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
             <a className="hover:text-white" href="mailto:sjanger@binghamton.edu">Email</a>
-            <a className="hover:text-white" href="/SanketJanger_Resume.pdf" download>Resume</a>
+            <a className="hover:text-white" href={LINKS.resume} download>Resume</a>
           </div>
           © {year} Sanket Janger • Built with Next.js
         </footer>
