@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { Github, Linkedin, Mail, Download, ArrowUpRight, Sparkles } from "lucide-react";
-import { useEffect, useMemo } from "react";
+import { Github, Linkedin, Mail, Download, ArrowUpRight, Sparkles, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 const LINKS = {
   github: "https://github.com/SanketJanger",
@@ -18,21 +18,44 @@ type Project = {
   stack: string[];
   highlights: string[];
   status?: "In Progress" | "Completed";
-  href?: string; 
+  href?: string;
+  demo?: string;
 };
 
 const PROJECTS: Project[] = [
   {
-    title: "NYC Yellow Taxi Real-Time Analytics Platform",
-    tagline: "FastAPI + Next.js + AWS analytics with natural-language querying.",
-    stack: ["Python", "FastAPI", "Next.js", "AWS S3", "Athena", "Power BI", "CI/CD"],
+    title: "GrindMate — An LeetCode Companion",
+    tagline: "AI-powered developer learning tool with spaced-repetition scheduling and DSA progress tracking.",
+    stack: ["TypeScript", "React", "Vite", "Cloudflare Workers AI", "Durable Objects", "GitHub OAuth"],
     highlights: [
-      "Scalable pipeline over millions of trips",
-      "NLQ interface for insights on demand/fare/zones",
-      "Dashboards + automated deployments",
+      "Built with a TypeScript/React frontend and Cloudflare Workers backend, integrating GitHub OAuth and Durable Objects to persist user-specific problem history across sessions.",
+      "Implemented spaced-repetition scheduling with Durable Object Alarms and built a Recharts dashboard to track solve rate, time per problem, and topic mastery across DSA categories.",
     ],
-    status: "In Progress",
-    href: "https://github.com/SanketJanger/nyc-taxi-analytics-platform",
+    status: "Completed",
+    href: "https://github.com/SanketJanger/GrindMate",
+    demo: "https://grindmate.sanketjanger15.workers.dev/",
+  },
+  {
+    title: "GCP Usage Analytics Pipeline",
+    tagline: "Event-driven pipeline on GCP with real-time streaming, BigQuery analytics, and Looker Studio dashboards.",
+    stack: ["Python", "GCP Pub/Sub", "Cloud Functions", "BigQuery", "Looker Studio"],
+    highlights: [
+      "Built an event-driven pipeline using Pub/Sub for real-time streaming of UI interactions and API metrics into BigQuery — 2,000+ events processed with under 2 seconds end-to-end latency, table partitioned by date and clustered by component for cost-efficient queries.",
+      "Exposed the pipeline as a REST API on Cloud Run with auto-alerting when error rate crosses 30% and a live Looker Studio dashboard showing real-time event volume and API latency distributions.",
+    ],
+    status: "Completed",
+    href: "https://github.com/SanketJanger/usage-analytics-pipeline",
+  },
+  {
+    title: "OrderFlow — Distributed Order Processing System",
+    tagline: "Event-driven order processing with FastAPI, RabbitMQ, Redis pub/sub, and real-time WebSocket tracking.",
+    stack: ["FastAPI", "Redis", "RabbitMQ", "PostgreSQL", "Next.js", "Docker"],
+    highlights: [
+      "Built a distributed, event-driven order processing system where sync and async workers handle cart validation, inventory reservation with row-level locking, and payment processing with exponential backoff. Processed 10 concurrent orders with 100% fulfillment and 0 messages lost to the dead letter queue.",
+      "Added real-time order tracking using Redis pub/sub and WebSocket — every status change pushes instantly to the browser without polling. Clean orders confirm in 3.6 seconds end to end, with 4 async background jobs firing in parallel the moment payment succeeds.",
+    ],
+    status: "Completed",
+    href: "https://github.com/SanketJanger/OrderFlow---A-Distributed-Order-Processing-System",
   },
   {
     title: "Ensemble Learning for Medical Risk Prediction",
@@ -70,23 +93,12 @@ const PROJECTS: Project[] = [
 
 const EXPERIENCE = [
   {
-    role: "Data Science Intern — Global Health Impact Project",
-    when: "May 2025 – Aug 2025",
+    role: "Software Development Intern — Global Health Impact Project",
+    when: "May 2025 – August 2025",
     where: "Binghamton, NY",
     bullets: [
-      "Built Python ETL pipelines (Pandas) to ingest/standardize data across sources.",
-      "Added QA checks + forecasting to estimate missing values and project trends.",
-      "Generated automated entity charts and supported TypeScript/JS indicators.",
-    ],
-  },
-  {
-    role: "Software Engineering Intern — Emerging Technologies",
-    when: "Feb 2023 – Mar 2023",
-    where: "India",
-    bullets: [
-      "Built full-stack apps in C#/.NET with backend logic and real-time processing.",
-      "Created a drag-and-drop ID Card Generator with automated data mapping.",
-      "Integrated Firebase storage/auth and built audio translation via external APIs.",
+      "Enabled multi-variable disease forecasting by implementing DALY-based Impact Score computations and four analysis views across Country, Drug, Disease, and Company.",
+      "Identified a discrepancy between Impact Score outputs and the project's reference mapping, traced it to calculation logic, and created worked examples that helped the team correct the production model.",
     ],
   },
 ];
@@ -96,7 +108,7 @@ const EDUCATION = [
     degree: "Master of Science in Computer Science (AI Track)",
     school: "The State University of New York at Binghamton University",
     location: "Binghamton, NY",
-    period: "Aug 2024 – May 2026",
+    period: "Aug 2024 – Dec 2026",
     details: [
       "Relevant Coursework: Design and Analysis of Algorithms, Cloud Computing, Design Patterns, Programming Languages, System Programming, Intro to AI, Multi-Modal ML in BioMedicine, Intro to Machine Learning, Data Mining",
     ],
@@ -113,10 +125,12 @@ const EDUCATION = [
 ];
 
 const SKILLS = [
-  { label: "Languages", items: ["Python", "SQL", "Java", "C#"] },
-  { label: "Data/ML", items: ["NumPy", "Pandas", "scikit-learn", "PyTorch"] },
-  { label: "Cloud/DB", items: ["AWS (S3, Athena, Lambda, IAM, EC2)", "PostgreSQL", "MySQL"] },
-  { label: "Tools", items: ["GitHub Actions", "Power BI", "Excel"] },
+  { label: "Languages", items: ["Python", "TypeScript", "SQL", "HTML/CSS"] },
+  { label: "Frameworks & Libraries", items: ["React", "Next.js", "FastAPI", "Flask", "Vite"] },
+  { label: "Messaging / Streaming", items: ["RabbitMQ", "WebSockets", "Event-driven systems"] },
+  { label: "Datastores", items: ["PostgreSQL", "Redis", "BigQuery", "Supabase"] },
+  { label: "Cloud & DevOps", items: ["GCP (Pub/Sub, Cloud Functions, BigQuery)", "Docker", "Git", "CI/CD"] },
+  { label: "AI / Developer Tools", items: ["Cloudflare Workers AI", "LLM APIs", "Claude Code", "GitHub Copilot", "Cursor"] },
 ];
 
 function cn(...c: Array<string | false | null | undefined>) {
@@ -223,12 +237,60 @@ function Pill({ children }: { children: React.ReactNode }) {
   );
 }
 
+function ResumeModal({ onClose }: { onClose: () => void }) {
+  const src = useMemo(() => `${LINKS.resume}?v=${Date.now()}`, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+      onClick={onClose}
+    >
+      <div
+        className="relative flex flex-col w-full max-w-4xl h-[90vh] rounded-2xl border border-white/10 bg-[#0b0c1a] overflow-hidden shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#070812]/80">
+          <span className="text-sm font-medium text-white/70">Resume Preview</span>
+          <div className="flex items-center gap-2">
+            <a
+              href={src}
+              download="SanketJanger_Resume.pdf"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-sm font-medium text-[#070812] hover:opacity-90"
+            >
+              <Download className="h-4 w-4" /> Download
+            </a>
+            <button
+              onClick={onClose}
+              className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 p-1.5 text-white/70 hover:bg-white/10 hover:text-white"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+        <iframe
+          src={src}
+          className="flex-1 w-full"
+          title="Resume Preview"
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function Page() {
   const year = useMemo(() => new Date().getFullYear(), []);
+  const [showResume, setShowResume] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#070812] text-white">
       <PremiumCursor />
+      {showResume && <ResumeModal onClose={() => setShowResume(false)} />}
 
       {/* background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
@@ -266,14 +328,13 @@ export default function Page() {
             <a className="hover:text-white" href="#contact">Contact</a>
           </nav>
 
-          <a
+          <button
             className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/85 hover:bg-white/10"
-            href={LINKS.resume}
-            download
+            onClick={() => setShowResume(true)}
           >
             <Download className="h-4 w-4" />
             Resume
-          </a>
+          </button>
         </div>
       </header>
 
@@ -284,7 +345,7 @@ export default function Page() {
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
                 <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/90" />
-                MS CS (AI Track) • Binghamton
+                MS CS (AI Track) • Binghamton University (graduating Dec 2026)
               </div>
 
               <h1 className="mt-4 text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
@@ -294,11 +355,11 @@ export default function Page() {
               </h1>
 
               <p className="mt-5 max-w-xl text-white/70">
-                Software + data engineering focused on pipelines, analytics, and practical ML. Currently building a real-time NYC taxi analytics platform with cloud + APIs.
+                Software engineer focused on distributed systems, event-driven pipelines, and AI-powered developer tools. I build reliable backend and full-stack systems with clear product impact.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
-                <Pill>Python</Pill><Pill>AWS</Pill><Pill>FastAPI</Pill><Pill>Next.js</Pill><Pill>SQL</Pill><Pill>CI/CD</Pill>
+                <Pill>TypeScript</Pill><Pill>Python</Pill><Pill>FastAPI</Pill><Pill>Next.js</Pill><Pill>GCP</Pill><Pill>Docker</Pill>
               </div>
 
               <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3">
@@ -338,17 +399,7 @@ export default function Page() {
 
                   <div>
                     <div className="text-lg font-medium">Sanket Navnath Janger</div>
-                    <div className="text-sm text-white/65">Binghamton, NY • Open to SWE / Data roles</div>
-                  </div>
-                </div>
-
-                <div className="mt-5 grid gap-3">
-                  <div className="rounded-2xl border border-white/10 bg-[#0b0c1a]/70 p-4">
-                    <div className="text-sm text-white/70">Currently crafting</div>
-                    <div className="mt-1 font-medium">Real-time analytics + NLQ</div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <Pill>Athena</Pill><Pill>S3</Pill><Pill>FastAPI</Pill><Pill>Next.js</Pill>
-                    </div>
+                    <div className="text-sm text-white/65">Binghamton, NY • Open to SWE, Backend, and Platform roles • Open to Relocate • CPT/OPT Eligible</div>
                   </div>
                 </div>
 
@@ -368,19 +419,15 @@ export default function Page() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
               <p className="text-white/70 leading-relaxed">
-                I’m a CS grad student (AI Track) who likes building systems that turn messy real-world data into clean, useful products.
-                I enjoy combining cloud, APIs, and thoughtful Visualizations to make analytics feel effortless.
+                Master’s student in Computer Science at SUNY Binghamton, graduating December 2026, focused on backend, full-stack, and AI-assisted software engineering. I build practical systems using Python, TypeScript, React, FastAPI, PostgreSQL, Redis, RabbitMQ, GCP, and Cloudflare. I’m looking for software engineering roles where I can contribute to product features, backend infrastructure, event-driven systems, and tools that solve real problems.
               </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                <Pill>ETL</Pill><Pill>Analytics</Pill><Pill>ML</Pill><Pill>System Design</Pill>
-              </div>
             </div>
             <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
               <div className="text-sm text-white/70">Highlights</div>
               <ul className="mt-3 space-y-2 text-white/70">
-                <li>• Python ETL + QA checks + forecasting workflows</li>
-                <li>• Cloud pipelines on AWS (S3/Athena/Lambda/EC2)</li>
-                <li>• Full-stack work: FastAPI + Next.js + dashboards</li>
+                <li>• Backend: FastAPI, Flask, PostgreSQL, Redis, RabbitMQ, WebSockets</li>
+                <li>• Cloud/Data: GCP Pub/Sub, Cloud Functions, Cloud Run, BigQuery</li>
+                <li>• AI/Product: TypeScript, React, Cloudflare Workers AI, Durable Objects</li>
               </ul>
             </div>
           </div>
@@ -439,16 +486,28 @@ export default function Page() {
                   {p.highlights.map((h) => <li key={h}>• {h}</li>)}
                 </ul>
 
-                {p.href && (
-                  <a
-                    href={p.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-flex items-center text-sm text-indigo-300 hover:text-indigo-200"
-                  >
-                    View Repository →
-                  </a>
-                )}
+                <div className="mt-4 flex flex-wrap gap-4">
+                  {p.href && (
+                    <a
+                      href={p.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center text-sm text-indigo-300 hover:text-indigo-200"
+                    >
+                      View Repository →
+                    </a>
+                  )}
+                  {p.demo && (
+                    <a
+                      href={p.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center text-sm text-emerald-300 hover:text-emerald-200"
+                    >
+                      Live Demo →
+                    </a>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -500,9 +559,9 @@ export default function Page() {
               <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.linkedin} target="_blank" rel="noreferrer">
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
-              <a className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" href={LINKS.resume} download>
+              <button className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10" onClick={() => setShowResume(true)}>
                 <Download className="h-4 w-4" /> Download resume
-              </a>
+              </button>
             </div>
           </div>
         </Section>
@@ -512,9 +571,9 @@ export default function Page() {
             <a className="hover:text-white" href={LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
             <a className="hover:text-white" href={LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
             <a className="hover:text-white" href="mailto:sjanger@binghamton.edu">Email</a>
-            <a className="hover:text-white" href={LINKS.resume} download>Resume</a>
+            <button className="hover:text-white" onClick={() => setShowResume(true)}>Resume</button>
           </div>
-          © {year} Sanket Janger • Built with Next.js
+          © {year} Sanket Janger  
         </footer>
       </main>
     </div>
