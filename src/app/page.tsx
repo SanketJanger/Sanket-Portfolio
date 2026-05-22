@@ -45,6 +45,7 @@ const PROJECTS: Project[] = [
     ],
     status: "Completed",
     href: "https://github.com/SanketJanger/usage-analytics-pipeline",
+    demo: "https://usage-analytics-api-518291172957.us-central1.run.app/dashboard",
   },
   {
     title: "OrderFlow — Distributed Order Processing System",
