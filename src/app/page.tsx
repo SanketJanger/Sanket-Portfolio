@@ -94,12 +94,23 @@ const PROJECTS: Project[] = [
 
 const EXPERIENCE = [
   {
-    role: "Software Development Intern — Global Health Impact Project",
+    role: "Back End Developer Intern — Altheros Capital",
+    when: "June 2026 – Present",
+    where: "Los Angeles, CA",
+    bullets: [
+      "Built and tested RESTful APIs for Cara AI, a persona-based AI companion platform using FastAPI, PostgreSQL, Redis, and Docker.",
+      "Refactored user profile API response schemas and added Pytest smoke coverage for profile update endpoints to validate request handling and response consistency.",
+      "Integrated SwiftUI persona onboarding screens with backend user-profile APIs, validating request payloads and profile persistence across onboarding flows.",
+    ],
+  },
+  {
+    role: "Data Intern — Global Health Impact Project",
     when: "May 2025 – August 2025",
     where: "Binghamton, NY",
     bullets: [
-      "Enabled multi-variable disease forecasting by implementing DALY-based Impact Score computations and four analysis views across Country, Drug, Disease, and Company.",
-      "Identified a discrepancy between Impact Score outputs and the project's reference mapping, traced it to calculation logic, and created worked examples that helped the team correct the production model.",
+      "Implemented disease-impact calculation logic using DALYs, treatment coverage, and drug efficacy to support country- level and year-over-year health outcome comparisons.",
+      "Converted spreadsheet-based research workflows into reproducible Python scripts, reducing manual processing and im- proving consistency of Impact Score calculations.",
+      "Debugged Impact Score discrepancies across country, disease, drug, and company mappings, improving reliability of forecasting results used by the research team.",
     ],
   },
 ];
