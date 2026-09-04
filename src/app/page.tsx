@@ -439,9 +439,9 @@ export default function Page() {
             <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
               <div className="text-sm text-white/70">Highlights</div>
               <ul className="mt-3 space-y-2 text-white/70">
-                <li>• Backend: FastAPI, Flask, PostgreSQL, Redis, RabbitMQ, WebSockets</li>
-                <li>• Cloud/Data: GCP Pub/Sub, Cloud Functions, Cloud Run, BigQuery</li>
-                <li>• AI/Product: TypeScript, React, Cloudflare Workers AI, Durable Objects</li>
+                <li>• Backend & Systems: Python, TypeScript, FastAPI, Node.js, Express, PostgreSQL, Redis, RabbitMQ, Kafka, WebSockets</li>
+                <li>• Cloud & Infrastructure: AWS, GCP, Docker, Kubernetes, Cloudflare Workers, Durable Objects, D1, BigQuery</li>
+                <li>• AI & Developer Tools: RAG, LLM APIs, FinBERT, sentence-transformers, Workers AI, Codex, Cursor, Claude Code</li>
               </ul>
             </div>
           </div>
