@@ -24,39 +24,63 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    title: "GrindMate — An LeetCode Companion",
-    tagline: "AI-powered developer learning tool with spaced-repetition scheduling and DSA progress tracking.",
-    stack: ["TypeScript", "React", "Vite", "Cloudflare Workers AI", "Durable Objects", "GitHub OAuth"],
+    title: "OrderFlow — Distributed Order Processing System",
+    tagline: "Event-driven order processing with FastAPI, RabbitMQ, Redis pub/sub, and real-time WebSocket tracking.",
+    stack: ["FastAPI", "Redis", "RabbitMQ", "PostgreSQL", "Next.js", "Docker"],
     highlights: [
-      "Built with a TypeScript/React frontend and Cloudflare Workers backend, integrating GitHub OAuth and Durable Objects to persist user-specific problem history across sessions.",
-      "Implemented spaced-repetition scheduling with Durable Object Alarms and built a Recharts dashboard to track solve rate, time per problem, and topic mastery across DSA categories.",
+      "Built a distributed order-processing system using RabbitMQ and PostgreSQL row-level locking, achieving 99.7% fulfillment across 1,000 concurrent orders while routing exhausted payment failures to a dead-letter queue.",
+    "Scaled workers from 1 to 4 replicas for a 2.6x throughput improvement and diagnosed a Kubernetes HPA issue that incorrectly scaled an I/O-bound workload from 4 workers to 1, recovering 3.8x throughput after adjusting the scaling strategy.",
+    "Implemented real-time order-status updates using Redis Pub/Sub and WebSockets, allowing clients to track order progress as asynchronous workers processed each stage."
     ],
     status: "Completed",
-    href: "https://github.com/SanketJanger/GrindMate",
-    demo: "https://grindmate.sanketjanger15.workers.dev/",
+    href: "https://github.com/SanketJanger/OrderFlow---A-Distributed-Order-Processing-System",
   },
   {
     title: "GCP Usage Analytics Pipeline",
     tagline: "Event-driven pipeline on GCP with real-time streaming, BigQuery analytics, and Looker Studio dashboards.",
     stack: ["Python", "GCP Pub/Sub", "Cloud Functions", "BigQuery", "Looker Studio"],
     highlights: [
-      "Built an event-driven pipeline using Pub/Sub for real-time streaming of UI interactions and API metrics into BigQuery — 2,000+ events processed with under 2 seconds end-to-end latency, table partitioned by date and clustered by component for cost-efficient queries.",
-      "Exposed the pipeline as a REST API on Cloud Run with auto-alerting when error rate crosses 30% and a live Looker Studio dashboard showing real-time event volume and API latency distributions.",
+      "Built an event-driven pipeline that sends application events through GCP Pub/Sub and Cloud Functions into BigQuery with under 2-second end-to-end latency from publish to query.",
+    "Optimized BigQuery storage with date partitioning and component-level clustering, reducing unnecessary data scans while supporting targeted analytics queries.",
+    "Deployed a FastAPI ingestion layer on Cloud Run with error-rate and latency monitoring, then integrated GrindMate through a secured HTTP endpoint so real user activity flows into the analytics pipeline."
     ],
     status: "Completed",
     href: "https://github.com/SanketJanger/usage-analytics-pipeline",
     demo: "https://usage-analytics-api-518291172957.us-central1.run.app/dashboard",
   },
   {
-    title: "OrderFlow — Distributed Order Processing System",
-    tagline: "Event-driven order processing with FastAPI, RabbitMQ, Redis pub/sub, and real-time WebSocket tracking.",
-    stack: ["FastAPI", "Redis", "RabbitMQ", "PostgreSQL", "Next.js", "Docker"],
+    title: "GrindMate — An LeetCode Companion",
+    tagline: "AI-powered developer learning tool with spaced-repetition scheduling and DSA progress tracking.",
+    stack: ["TypeScript", "React", "Vite", "Cloudflare Workers AI", "Durable Objects", "GitHub OAuth"],
     highlights: [
-      "Built a distributed, event-driven order processing system where sync and async workers handle cart validation, inventory reservation with row-level locking, and payment processing with exponential backoff. Processed 10 concurrent orders with 100% fulfillment and 0 messages lost to the dead letter queue.",
-      "Added real-time order tracking using Redis pub/sub and WebSocket — every status change pushes instantly to the browser without polling. Clean orders confirm in 3.6 seconds end to end, with 4 async background jobs firing in parallel the moment payment succeeds.",
+     "Built a chat-based DSA tracker where users log problems in natural language and Llama 3.3 extracts structured problem details, with per-user state isolated through Durable Objects and D1.",
+    "Implemented spaced-repetition reviews at 1, 3, and 7-day intervals using Durable Object Alarms, a NeetCode 150 roadmap across 18 categories, and automated daily review emails through Resend.",
+    "Shipped the product publicly and iterated on onboarding based on real user behavior, then built an analytics pipeline that streams Cloudflare Workers events into GCP BigQuery to measure usage and drop-off."
     ],
     status: "Completed",
-    href: "https://github.com/SanketJanger/OrderFlow---A-Distributed-Order-Processing-System",
+    demo: "https://grindmate.dev/",
+  },
+  {
+    title: "FinPulse — Real-Time Financial News Intelligence Platform",
+    tagline: "Real-time financial news platform with AI sentiment analysis, summarization, and semantic search.",
+    stack: [
+      "Python",
+      "FastAPI",
+      "Apache Kafka",
+      "Redis",
+      "PostgreSQL",
+      "WebSockets",
+      "FinBERT",
+      "Llama 3.3",
+      "ChromaDB",
+      "sentence-transformers",
+    ],
+    highlights: [
+      "Built a real-time news processing pipeline that ingests and serves 500+ articles per hour using Kafka, FastAPI, Redis, PostgreSQL, and WebSockets, achieving sub-50ms cached API latency.",
+      "Implemented an AI pipeline with local FinBERT sentiment analysis, Llama 3.3 summarization, and RAG-based semantic search using sentence-transformers and ChromaDB across 10K+ articles.",
+    ],
+    status: "Completed",
+    href: "https://github.com/SanketJanger/Live-News-Feeding-Platform"
   },
   {
     title: "Ensemble Learning for Medical Risk Prediction",
@@ -66,30 +90,6 @@ const PROJECTS: Project[] = [
     status: "Completed",
     href: "https://github.com/SanketJanger/Ensemble-Learning-for-Medical-Risk-Prediction",
   },
-  {
-    title: "Retail Optimization Dashboard",
-    tagline: "SQL + Power BI analytics for inventory health, stockouts, and smarter reordering.",
-    stack: ["SQL", "Power BI", "CTEs", "Joins", "Aggregations", "Forecasting"],
-    highlights: [
-      "Built SQL datasets (CTEs/joins/aggregations) for sales KPIs, stockouts, and reorder signals.",
-      "Developed Power BI dashboards with trends + drilldowns by store/product/time.",
-      "Added demand forecasting views to support inventory planning and reduce stockouts.",
-    ],
-    status: "Completed",
-    href: "https://github.com/SanketJanger/Retail-Optimization-Dashboard",
-  },
-  {
-    title: "Customer Segmentation via Clustering",
-    tagline: "Unsupervised learning to discover customer segments from transactional data.",
-    stack: ["Python", "pandas", "scikit-learn", "K-Means", "EDA", "Clustering Metrics"],
-    highlights: [
-      "Implemented K-Means workflow with preprocessing (scaling/encoding) and repeatable runs.",
-      "Automated segment discovery from transactional data and generated segment profiles.",
-      "Evaluated clusters using silhouette/inertia and improved interpretability with feature-based insights.",
-    ],
-    status: "Completed",
-    href: "https://github.com/SanketJanger/Customer-Segmentation-via-Clustering",
-  },
 ];
 
 const EXPERIENCE = [
@@ -98,10 +98,11 @@ const EXPERIENCE = [
     when: "June 2026 – Present",
     where: "Los Angeles, CA",
     bullets: [
-      "Built and tested RESTful APIs for Cara AI, a persona-based AI companion platform using FastAPI, PostgreSQL, Redis, and Docker.",
-      "Refactored user profile API response schemas and added Pytest smoke coverage for profile update endpoints to validate request handling and response consistency.",
-      "Integrated SwiftUI persona onboarding screens with backend user-profile APIs, validating request payloads and profile persistence across onboarding flows.",
-    ],
+      "Delivered the backend for an investor portal in 8 days against a 2-week estimate, replacing AWS Cognito with JWT-based authentication and implementing global, project-specific, and investor-specific document access.",
+    "Identified and patched a broken object-level authorization vulnerability in a production API, preventing cross-user data exposure and enforcing field-level access control across authenticated profile endpoints.",
+    "Built and maintained REST APIs for Cara AI using FastAPI, PostgreSQL, Redis, and Docker, covering authentication, user profiles, settings, and device-aware session management.",
+    "Implemented AWS S3 document storage with presigned downloads, role-based access control, admin management APIs, and project-level investor authorization using Node.js, Express, PostgreSQL, and Prisma.",
+  ],
   },
   {
     role: "Data Intern — Global Health Impact Project",
@@ -137,12 +138,13 @@ const EDUCATION = [
 ];
 
 const SKILLS = [
-  { label: "Languages", items: ["Python", "TypeScript", "SQL", "HTML/CSS"] },
-  { label: "Frameworks & Libraries", items: ["React", "Next.js", "FastAPI", "Flask", "Vite"] },
-  { label: "Messaging / Streaming", items: ["RabbitMQ", "WebSockets", "Event-driven systems"] },
-  { label: "Datastores", items: ["PostgreSQL", "Redis", "BigQuery", "Supabase"] },
-  { label: "Cloud & DevOps", items: ["GCP (Pub/Sub, Cloud Functions, BigQuery)", "Docker", "Git", "CI/CD"] },
-  { label: "AI / Developer Tools", items: ["Cloudflare Workers AI", "LLM APIs", "Claude Code", "GitHub Copilot", "Cursor"] },
+  { label: "Languages", items: ["Python", "TypeScript", "JavaScript", "SQL", "HTML/CSS"] },
+  { label: "Frameworks & Libraries", items: ["React", "Next.js", "FastAPI", "Flask", "Vite", "Node.js", "Express", "SQLAlchemy", "Alembic", "Prisma"] },
+  { label: "Messaging / Streaming", items: ["RabbitMQ", "Apache Kafka", "WebSockets", "Redis Pub/Sub", "REST APIs"] },
+  { label: "Datastores", items: ["PostgreSQL", "MySQL", "Redis", "BigQuery", "ChromaDB"]},
+  { label: "Cloud & DevOps", items: ["AWS (S3, IAM)", "GCP (Pub/Sub, Cloud Run, Cloud Function, BigQuery)", "Docker", "Kubernetes",
+    "Cloudflare (Workers, Durable Objects, D1)", "Git", "Linux"] },
+  { label: "AI / Developer Tools", items: ["RAG", "LLM APIs", "FinBERT", "sentence-transformers", "Codex", "Cursor", "Claude Code"] },
 ];
 
 function cn(...c: Array<string | false | null | undefined>) {
