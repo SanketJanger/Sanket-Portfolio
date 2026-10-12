@@ -12,6 +12,41 @@ const LINKS = {
   resume: "/SanketJanger_Resume.pdf",
 };
 
+const EXPERIENCE = [
+  {
+    role: "Back End Tech Lead — Altheros Capital",
+    when: "September 2026 – Present",
+    where: "Los Angeles, CA",
+    bullets: [
+      "Leading a team of 13 backend interns on Creddly AI, a private credit marketplace, overseeing code reviews across authentication, RBAC, API design, and database layers.",
+    "Conducted a full security audit across auth middleware, user management, and transaction routes, identifying critical vulnerabilities including account takeover, self-accept bid logic flaw, and mass assignment, and created a prioritized remediation backlog with 15+ tracked issues.",
+    "Architected the AI lender-borrower matching engine and designed a 5-phase production readiness roadmap covering identity verification, financial data ingestion, contract execution, and payment processing.",
+    "Led SEO implementation across all routes, directing dynamic meta tags, Open Graph data, and canonical URL strategy using React Helmet Async.",
+  ],
+  },
+  {
+    role: "Back End Developer Intern — Altheros Capital",
+    when: "June 2026 – August 2026",
+    where: "Los Angeles, CA",
+    bullets: [
+      "Delivered the backend for an investor portal in 8 days against a 2-week estimate, replacing AWS Cognito with JWT-based authentication and implementing global, project-specific, and investor-specific document access.",
+    "Identified and patched a broken object-level authorization vulnerability in a production API, preventing cross-user data exposure and enforcing field-level access control across authenticated profile endpoints.",
+    "Built and maintained REST APIs for Cara AI using FastAPI, PostgreSQL, Redis, and Docker, covering authentication, user profiles, settings, and device-aware session management.",
+    "Implemented AWS S3 document storage with presigned downloads, role-based access control, admin management APIs, and project-level investor authorization using Node.js, Express, PostgreSQL, and Prisma.",
+  ],
+  },
+  {
+    role: "Data Intern — Global Health Impact Project",
+    when: "May 2025 – August 2025",
+    where: "Binghamton, NY",
+    bullets: [
+      "Implemented disease-impact calculation logic using DALYs, treatment coverage, and drug efficacy to support country- level and year-over-year health outcome comparisons.",
+      "Converted spreadsheet-based research workflows into reproducible Python scripts, reducing manual processing and im- proving consistency of Impact Score calculations.",
+      "Debugged Impact Score discrepancies across country, disease, drug, and company mappings, improving reliability of forecasting results used by the research team.",
+    ],
+  },
+];
+
 type Project = {
   title: string;
   tagline: string;
@@ -21,6 +56,7 @@ type Project = {
   href?: string;
   demo?: string;
 };
+
 
 const PROJECTS: Project[] = [
   {
@@ -34,6 +70,29 @@ const PROJECTS: Project[] = [
     ],
     status: "Completed",
     href: "https://github.com/SanketJanger/OrderFlow---A-Distributed-Order-Processing-System",
+  },
+  {
+    title: "FinPulse — Real-Time Financial News Intelligence Platform",
+    tagline: "Real-time financial news platform with AI sentiment analysis, summarization, and semantic search.",
+    stack: [
+      "Python",
+      "FastAPI",
+      "Apache Kafka",
+      "Redis",
+      "PostgreSQL",
+      "WebSockets",
+      "FinBERT",
+      "Llama 3.3",
+      "ChromaDB",
+      "sentence-transformers",
+    ],
+    highlights: [
+      "Sustained 500+ articles per hour at sub-50ms API latency by decoupling ingestion from serving with Kafka (KRaft mode) and caching hot reads in Redis",
+      "Eliminated per-token sentiment API costs by routing classification to a local FinBERT model (22ms inference) and reserving Groq LLaMA 3.3 for summarization only.",
+      "Enabled natural language queries by embedding articles with sentence-transformers and indexing them in ChromaDB, returning results in under 200ms across 1,000+ articles."
+    ],
+    status: "Completed",
+    href: "https://github.com/SanketJanger/FinPulse-AI-Powered-Financial-News-Intelligence-Platform"
   },
   {
     title: "GCP Usage Analytics Pipeline",
@@ -61,58 +120,12 @@ const PROJECTS: Project[] = [
     demo: "https://grindmate.dev/",
   },
   {
-    title: "FinPulse — Real-Time Financial News Intelligence Platform",
-    tagline: "Real-time financial news platform with AI sentiment analysis, summarization, and semantic search.",
-    stack: [
-      "Python",
-      "FastAPI",
-      "Apache Kafka",
-      "Redis",
-      "PostgreSQL",
-      "WebSockets",
-      "FinBERT",
-      "Llama 3.3",
-      "ChromaDB",
-      "sentence-transformers",
-    ],
-    highlights: [
-      "Built a real-time news processing pipeline that ingests and serves 500+ articles per hour using Kafka, FastAPI, Redis, PostgreSQL, and WebSockets, achieving sub-50ms cached API latency.",
-      "Implemented an AI pipeline with local FinBERT sentiment analysis, Llama 3.3 summarization, and RAG-based semantic search using sentence-transformers and ChromaDB across 10K+ articles.",
-    ],
-    status: "Completed",
-    href: "https://github.com/SanketJanger/Live-News-Feeding-Platform"
-  },
-  {
     title: "Ensemble Learning for Medical Risk Prediction",
     tagline: "Stacked models with CNN + Gradient Boosting for risk scoring.",
     stack: ["PyTorch", "scikit-learn", "Python"],
     highlights: ["Cross-validation training pipeline", "Benchmarking + evaluation", "Fast inference focus"],
     status: "Completed",
     href: "https://github.com/SanketJanger/Ensemble-Learning-for-Medical-Risk-Prediction",
-  },
-];
-
-const EXPERIENCE = [
-  {
-    role: "Back End Developer Intern — Altheros Capital",
-    when: "June 2026 – Present",
-    where: "Los Angeles, CA",
-    bullets: [
-      "Delivered the backend for an investor portal in 8 days against a 2-week estimate, replacing AWS Cognito with JWT-based authentication and implementing global, project-specific, and investor-specific document access.",
-    "Identified and patched a broken object-level authorization vulnerability in a production API, preventing cross-user data exposure and enforcing field-level access control across authenticated profile endpoints.",
-    "Built and maintained REST APIs for Cara AI using FastAPI, PostgreSQL, Redis, and Docker, covering authentication, user profiles, settings, and device-aware session management.",
-    "Implemented AWS S3 document storage with presigned downloads, role-based access control, admin management APIs, and project-level investor authorization using Node.js, Express, PostgreSQL, and Prisma.",
-  ],
-  },
-  {
-    role: "Data Intern — Global Health Impact Project",
-    when: "May 2025 – August 2025",
-    where: "Binghamton, NY",
-    bullets: [
-      "Implemented disease-impact calculation logic using DALYs, treatment coverage, and drug efficacy to support country- level and year-over-year health outcome comparisons.",
-      "Converted spreadsheet-based research workflows into reproducible Python scripts, reducing manual processing and im- proving consistency of Impact Score calculations.",
-      "Debugged Impact Score discrepancies across country, disease, drug, and company mappings, improving reliability of forecasting results used by the research team.",
-    ],
   },
 ];
 
@@ -138,13 +151,14 @@ const EDUCATION = [
 ];
 
 const SKILLS = [
-  { label: "Languages", items: ["Python", "TypeScript", "JavaScript", "SQL", "HTML/CSS"] },
-  { label: "Frameworks & Libraries", items: ["React", "Next.js", "FastAPI", "Flask", "Vite", "Node.js", "Express", "SQLAlchemy", "Alembic", "Prisma"] },
-  { label: "Messaging / Streaming", items: ["RabbitMQ", "Apache Kafka", "WebSockets", "Redis Pub/Sub", "REST APIs"] },
+  { label: "Languages", items: ["Python", "TypeScript", "JavaScript", "SQL", "C++", "HTML/CSS"] },
   { label: "Datastores", items: ["PostgreSQL", "MySQL", "Redis", "BigQuery", "ChromaDB"]},
-  { label: "Cloud & DevOps", items: ["AWS (S3, IAM)", "GCP (Pub/Sub, Cloud Run, Cloud Function, BigQuery)", "Docker", "Kubernetes",
-    "Cloudflare (Workers, Durable Objects, D1)", "Git", "Linux"] },
-  { label: "AI / Developer Tools", items: ["RAG", "LLM APIs", "FinBERT", "sentence-transformers", "Codex", "Cursor", "Claude Code"] },
+  { label: "Frameworks & Libraries", items: ["FastAPI", "Node.js", "Express", "React", "Flask", "SQLAlchemy", "Alembic", "Prisma"] },
+  { label: "Messaging / Streaming", items: ["Apache Kafka", "RabbitMQ", "WebSockets", "Redis Pub/Sub"] },
+  { label: "AI / Developer Tools", items: ["LLM APIs (Anthrophic, OpenAI, Gemini, Groq LLaMA 3.3)", "RAG", "Embeddings", "Vector Search (ChromaDB)", "FinBERT", "sentence-transformers"] },
+  { label: "Cloud & DevOps", items: ["AWS (S3, Cognito, IAM)", "GCP (Pub/Sub, Cloud Run, Cloud Function, BigQuery)", "Docker", "Kubernetes", "CI/CD", "Cloudflare (Workers, Durable Objects, D1)", "Git", "Linux"] },
+  { label: "Dev Tools", items: ["GitHub Co-Pilot", "Codex", "Claude Code", "Cursor"] },
+  { label: "Practices", items: ["Object Oriented Programming", "Data Structures and Algorithms", "Agile Methodologies", "Regression Testing", "Design Patterns"] },
 ];
 
 function cn(...c: Array<string | false | null | undefined>) {
